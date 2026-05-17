@@ -1,0 +1,13 @@
+{
+  "name": "MAMINA-Khatma",
+  "short_name": "Khatma",
+  "description": "Application de lecture organisée du Coran",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#064e3b",
+  "theme_color": "#064e3b",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": []
+}
