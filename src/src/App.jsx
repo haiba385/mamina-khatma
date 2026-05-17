@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Check, RotateCcw, Settings, BookOpen, Calendar, Plus, Minus, X, Archive, Award, Trash2, ChevronLeft, ChevronRight, Sparkles, Moon, Sun, CloudSun, Sunset, Star, Zap, AlertCircle, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { Check, RotateCcw, Settings, BookOpen, Calendar, Plus, Minus, X, Archive, Award, Trash2, ChevronLeft, ChevronRight, Sparkles, Moon, Sun, CloudSun, Sunset, Star, Zap, AlertCircle, CheckCircle2, AlertTriangle, Share2 }from 'lucide-react';
 
 const storage = {
   get: async (key) => {
@@ -220,6 +220,17 @@ export default function App() {
     showToast('تمت الإضافة', 'success');
   };
 
+  const shareViaWhatsApp = () => {
+    const message = `السلام عليكم ورحمة الله وبركاته
+
+أشارككم تطبيق MAMINA-Khatma لتنظيم قراءة القرآن الكريم، بمعدل 20 صفحة يومياً موزعة على الصلوات الخمس، لإتمام ختمة كل شهر بإذن الله.
+
+الرابط: https://mamina-khatma.vercel.app
+
+نسأل الله القبول والتوفيق.`;
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+  };
   const deleteArchive = (id) => {
     showConfirm('حذف هذه الختمة؟', () => {
       const newArchives = archivedKhatmas.filter(k => k.id !== id);
@@ -459,6 +470,13 @@ export default function App() {
                 <h3 className="font-bold text-sm mb-2 flex items-center gap-2"><Award className="w-4 h-4 text-amber-600" />إدارة الدورة</h3>
                 <button onClick={() => { setShowSettings(false); setTimeout(archiveCurrentKhatma, 100); }} className="w-full py-3 bg-gradient-to-l from-emerald-500 to-teal-600 text-white rounded-xl font-bold mb-3 text-sm" style={{ minHeight: '48px' }}>حفظ الختمة الحالية</button>
                 <button onClick={() => { setShowSettings(false); setTimeout(startNewCycle, 100); }} className="w-full py-3 bg-amber-50 text-amber-800 rounded-xl font-bold text-xs" style={{ minHeight: '48px' }}>بدء دورة جديدة</button>
+              </div><div className="border-t pt-5">
+                <h3 className="font-bold text-sm mb-2 flex items-center gap-2"><Share2 className="w-4 h-4 text-emerald-600" />مشاركة التطبيق</h3>
+                <p className="text-[11px] text-slate-600 mb-3">شارك التطبيق مع الأهل والأصدقاء لينالوا أجر القراءة المنظمة بإذن الله</p>
+                <button onClick={() => { setShowSettings(false); setTimeout(shareViaWhatsApp, 100); }} className="w-full py-3 bg-gradient-to-l from-emerald-500 to-emerald-600 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2" style={{ minHeight: '48px' }}>
+                  <Share2 className="w-4 h-4" />
+                  مشاركة عبر واتساب
+                </button>
               </div>
             </div>
           </div>
