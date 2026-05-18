@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Check, RotateCcw, Settings, BookOpen, Calendar, Plus, Minus, X, Archive, Award, Trash2, ChevronLeft, ChevronRight, Sparkles, Moon, Sun, CloudSun, Sunset, Star, Zap, AlertCircle, CheckCircle2, AlertTriangle, Share2 } from 'lucide-react';
+import { Check, RotateCcw, Settings, BookOpen, Calendar, Plus, Minus, X, Archive, Award, Trash2, ChevronLeft, ChevronRight, Sparkles, Moon, Sun, CloudSun, Sunset, Star, Zap, AlertCircle, CheckCircle2, AlertTriangle, Share2, Mail, MessageSquare } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 
 const storage = {
   get: async (key) => {
@@ -62,6 +63,18 @@ export default function App() {
 نسأل الله القبول والتوفيق.`;
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+  };
+
+  const sendFeedbackEmail = () => {
+    const subject = encodeURIComponent('ملاحظات حول تطبيق MAMINA-Khatma');
+    const body = encodeURIComponent(`السلام عليكم ورحمة الله وبركاته
+
+أود مشاركتكم ملاحظاتي حول تطبيق MAMINA-Khatma:
+
+[يرجى كتابة ملاحظاتك أو اقتراحاتك هنا]
+
+جزاكم الله خيراً`);
+    window.location.href = `mailto:maminakhatma@gmail.com?subject=${subject}&body=${body}`;
   };
 
   const getHijriDate = (date, offset = 0) => {
@@ -248,6 +261,7 @@ export default function App() {
           <div className="inline-block w-16 h-16 border-4 border-amber-400 border-t-transparent rounded-full animate-spin mb-4"></div>
           <div className="text-amber-300 text-xl">MAMINA-Khatma</div>
         </div>
+        <Analytics />
       </div>
     );
   }
@@ -257,6 +271,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50" dir="rtl" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       
+      <Analytics />
+
       {toastMessage && (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50" style={{ top: 'calc(env(safe-area-inset-top) + 1rem)' }}>
           <div className={`px-5 py-3 rounded-2xl shadow-2xl text-white font-bold text-sm ${toastMessage.type === 'error' ? 'bg-rose-500' : 'bg-emerald-600'}`}>
@@ -448,6 +464,11 @@ export default function App() {
           مشاركة التطبيق عبر واتساب
         </button>
 
+        <button onClick={sendFeedbackEmail} className="w-full mt-3 py-4 bg-gradient-to-l from-amber-500 to-orange-600 text-white rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg" style={{ minHeight: '56px' }}>
+          <Mail className="w-5 h-5" />
+          ملاحظات واقتراحات
+        </button>
+
         <div className="mt-6 text-center pb-4">
           <p className="text-sm text-emerald-900/80 font-bold mb-1">﴿ إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ ﴾</p>
           <p className="text-[10px] text-slate-500">MAMINA-Khatma © Dr. Ahmed El Heiba Mamina</p>
@@ -487,6 +508,15 @@ export default function App() {
                   <Share2 className="w-4 h-4" />
                   مشاركة عبر واتساب
                 </button>
+              </div>
+              <div className="border-t pt-5">
+                <h3 className="font-bold text-sm mb-2 flex items-center gap-2"><MessageSquare className="w-4 h-4 text-amber-600" />ملاحظات واقتراحات</h3>
+                <p className="text-[11px] text-slate-600 mb-3">شاركنا ملاحظاتك واقتراحاتك لتطوير التطبيق وخدمة المسلمين بشكل أفضل</p>
+                <button onClick={() => { setShowSettings(false); setTimeout(sendFeedbackEmail, 100); }} className="w-full py-3 bg-gradient-to-l from-amber-500 to-orange-600 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2" style={{ minHeight: '48px' }}>
+                  <Mail className="w-4 h-4" />
+                  إرسال رسالة
+                </button>
+                <p className="text-[10px] text-slate-500 text-center mt-2">maminakhatma@gmail.com</p>
               </div>
             </div>
           </div>
